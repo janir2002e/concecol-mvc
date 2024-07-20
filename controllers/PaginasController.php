@@ -116,16 +116,13 @@ class PaginasController {
 
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $respuestas = $_POST['contacto'];
-
-            $mail = new PHPMailer();
-
             $mail = new PHPMailer();
             $mail->isSMTP();
-            $mail->Host = $_ENV['EMAIL_HOST'];
+            $mail->Host = 'sandbox.smtp.mailtrap.io';
             $mail->SMTPAuth = true;
-            $mail->Port = $_ENV['EMAIL_PORT'];
-            $mail->Username = $_ENV['EMAIL_USER'];
-            $mail->Password = $_ENV['EMAIL_PASS'];
+            $mail->Port = 2525;
+            $mail->Username = '036828c40474fb';
+            $mail->Password = 'fcee30007b6e46';
 
             //Configurar el contenido del mail
               
