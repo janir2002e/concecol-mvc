@@ -53,7 +53,7 @@ class Router
         $contenido = ob_get_clean(); // Limpia el Buffer y le asignamos el contenido de la vista a la variable
 
         // Utilizar el layout de acuerdo a la URL
-        $url_actual = $_SERVER['PATH_INFO'] ?? '/';
+        $url_actual = strtok($_SERVER['REQUEST_URI'], '?') ?? '/';
 
         // dependiendo la condición el contenido de la vista utiliza admin-layout o loyaut
         if(str_contains($url_actual, '/admin')){
