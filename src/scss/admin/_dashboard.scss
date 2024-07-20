@@ -1,0 +1,141 @@
+@use 'base/mixins' as m;
+@use 'base/variables' as v;
+
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: v.$gris-claro;
+
+
+    &__header {
+        background-color: darken(aqua, 15);
+        padding: 2rem;
+    }
+
+    &__heading {
+        margin-top: 2rem;
+    }
+
+    &__header-grid {
+        display: flex;
+        flex-direction: column;
+        @include m.tablet {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+    &__logo {
+        color: v.$blanco;
+        font-size: clamp(2rem, -0.8rem + 10vw, 3rem );
+        text-align: center;
+        margin-bottom: 2rem;
+        white-space: nowrap;
+        @include m.desktop {
+           text-align: left; 
+           margin: 0;
+        } 
+    }
+
+    &__form {
+        display: flex;
+        justify-content: center;
+    }
+
+    &__submit--logout {
+        @include m.enlace();
+        &:hover {
+            color: black;
+        }
+    }
+
+    &__grid {
+        display: flex;
+        flex: 1;
+        overflow: auto;
+    }
+
+    &__sidebar {
+        background-color: darken(aqua, 10);
+        width: 12rem;
+    }
+
+    &__menu {
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    &__enlace {
+        color: lighten(v.$blanco, 0);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem;
+        transition: 300ms background-color ease-in-out, 300ms color ease, border-radius ease;
+        
+        &:hover,
+        &--actual {
+            background-color: darken(aqua, 20);
+            border-radius: 1rem;
+        }
+
+    }
+
+    &__icono {
+        font-size: 2rem;
+    }
+
+    &__menu--texto {
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        font-weight: 700;
+        margin-top: .5rem;
+    }
+
+    &__contenido {
+        padding: 1rem 1rem 3rem 1rem;
+        width: 100%;
+        overflow-y: scroll;
+        @include m.tablet {
+            padding: 1rem 5rem 3rem 5rem;
+        }
+
+    }
+
+    &__contenedor-boton {
+        margin-bottom: 5rem;
+        @include m.tablet {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 5rem;
+        }
+    }
+
+    &__boton {
+        @include m.boton(darken(aqua, 15), v.$blanco);
+        text-transform: uppercase;
+        font-size: 1.4rem;
+    
+    }
+
+    &__contenedor {
+        @include m.shadow;
+        background-color: v.$blanco;
+        padding: 2rem;
+        border-radius: 1rem;
+        overflow-x: scroll;
+        @include m.tablet {
+            overflow-x: hidden;
+        }
+
+    }
+    
+    &__formulario {
+        @extend .dashboard__contenedor;
+        @include m.contenedor-md;
+    }
+
+}

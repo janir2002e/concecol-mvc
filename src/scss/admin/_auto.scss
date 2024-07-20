@@ -1,0 +1,17 @@
+@use 'base/mixins' as m;
+@use 'base/variables' as v;
+
+.auto{
+    &__imagen{
+        img {
+            border-radius: 1rem;
+        }
+    }
+}
+
+.autos {
+    &__texto {
+        text-align: center;
+    }
+    
+}

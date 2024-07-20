@@ -1,0 +1,11 @@
+@use 'mixins' as m;
+@use 'variables' as v;
+
+.boton-verde-block{
+    @include m.boton1(darken(aqua, 15), block);
+}
+
+.boton-verde-inline{
+    all: unset;
+    @include m.boton1(darken(aqua, 15), inline-block);
+}

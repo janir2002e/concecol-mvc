@@ -1,0 +1,31 @@
+@use 'base/mixins' as m;
+@use 'base/variables' as v;
+
+.auth {
+    width: min(95%, 60rem);
+    margin: 0 auto;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    border: 1px solid darken(v.$blanco, 20);
+    padding: 2rem;
+
+    &__heading {
+        font-size: 3rem;
+        color: lighten(v.$negro, 10);
+    }
+
+    &__texto, &__description{
+        color: v.$negro;
+        padding-left: 0.5rem;
+    }
+
+    &__textoc {
+        color: v.$negro;
+    }
+}
+
+
+
+
+
+

@@ -1,0 +1,129 @@
+@use 'base/mixins' as m;
+@use 'base/variables' as v;
+
+.formulario {
+    
+    &__fieldset {
+        border: none;
+        margin-top: 1rem;
+        padding: 0;
+    }
+
+    &__legend {
+        color: v.$gris;
+        font-size: 2.2rem;
+        margin-bottom: 2rem;
+    }
+
+    &__p {
+        color: v.$gris;
+        margin: 1rem 0;
+        font-size: 2rem;
+    }
+
+    &__legend2{
+        color: v.$gris;
+        font-size: 2.2rem;
+    }
+    
+    &__campo {
+        display: flex;
+        flex-direction: column;
+        margin: 1rem 0 1rem 0;
+        gap: 1rem;
+    
+    }
+
+    &__label {
+        display: block;
+        font-size: 1.8rem;
+        color: rgba(v.$negro, .8);
+    }
+
+    &__input {
+        padding: 1rem;
+        border: 1px solid darken(v.$gris-claro, 20);
+        border-radius: .5rem;
+
+        &--file {
+            border: none;
+            padding-left: 0;
+        }
+
+        &--sociales {
+            @extend .formulario__input;
+            flex: 1;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+
+        }
+    }
+
+    &__contenedor-icono {
+        display: flex;
+        border-radius: 0.5rem;
+        overflow: hidden;
+    }
+
+    &__icono {
+        background-color: v.$gris-oscuro;  
+        width: 4rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        i {
+            color: v.$blanco;
+            font-size: 2rem;
+        }
+    }
+
+    &__texto--imagen {
+        margin-top: 2rem;
+        color: v.$negro;
+
+    }
+
+    &__imagen {
+        max-width: 20rem;
+    }
+
+    &__submit {
+        @include m.boton(darken(aqua, 15), v.$blanco);
+        width: 100%;
+        margin-top: 2rem ;
+        margin-bottom: 1.5rem;
+        align-self: flex-start;
+        
+        @include m.tablet {
+            width: auto;
+        }
+        &:hover {
+            background-color: darken(aqua, 20);
+            cursor: pointer;
+        }
+        
+    }
+
+    &__info {
+        margin-bottom: 1rem;
+    }
+
+    &__contacto {
+        display: flex;
+        flex-direction: row;
+        gap: 3rem;
+        align-items: center;
+        
+    }
+
+    &__div {
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
+        align-items: center;
+    }
+
+    
+}
+

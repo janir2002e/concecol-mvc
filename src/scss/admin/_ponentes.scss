@@ -1,0 +1,34 @@
+@use 'base/mixins' as m;
+@use 'base/variables' as v;
+
+.listado-vendedores {
+    @include m.grid(1, 1rem);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    &__vendedor {
+        color: darken(aqua, 20) ;
+        border: solid 1px darken(aqua, 20);
+        border-radius: 1rem ;
+        padding: 1rem;
+        text-align: center;
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        &--seleccionado {
+
+            @extend .listado-vendedores;
+            background-color: darken(aqua, 15);
+            color: v.$blanco;
+        }
+
+    }
+
+    &__no-resultado {
+        color: v.$negro;
+        text-align: center;
+    }
+}
