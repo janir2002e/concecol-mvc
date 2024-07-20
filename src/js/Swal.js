@@ -8,18 +8,13 @@ import Swal from "sweetalert2";
     function EliminarVendedor(e){
         const id = parseInt(e.target.dataset.id);
         
-        obtenerVendedor(id);
+        ConfirmarEliminarVendedor(id);
     }
 
-    async function obtenerVendedor(id){
-        const id_vendedor = id
-        const url = `/admin/vendedores/eliminarValidar?id=${id_vendedor}`;
-        const respuesta = await fetch(url);
-        const resultado = await respuesta.json();
-        ConfirmarEliminarVendedor(resultado)
-    }
-
-   function ConfirmarEliminarVendedor(vendedor){
+   function ConfirmarEliminarVendedor(idV){
+        var vendeID = {
+            id : idV
+        }
         Swal.fire({
             title: '¿Seguro que quieres eliminar el vendedor?',
             showCancelButton: true,
@@ -27,14 +22,15 @@ import Swal from "sweetalert2";
             cancelButtonText: 'No'
             }).then((result) => {
             if (result.isConfirmed) {
-                eliminarVendedor(vendedor);
+                eliminarVendedor(vendeID);
             } 
             });
     }
 
     async function eliminarVendedor(vendedor){
+        const { id } = vendedor
         const datos = new FormData();
-        datos.append('id', vendedor.id);
+        datos.append('id', id);
 
         try {
             const url = '/admin/vendedores/eliminar';
