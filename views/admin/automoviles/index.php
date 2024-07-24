@@ -7,7 +7,15 @@
     </a>
 </div>
 
-
+<div class="filtro">
+    <p>Seleccione la marca:</p>
+    <?php foreach($marcas as $key => $marca) { ?>
+        
+        <a href="/admin/automoviles?page=1&marca=<?php echo $marca->nombre; ?>" class="boton-verde-inline">
+            <?php echo $marca->nombre; ?>
+        </a>
+    <?php } ?>
+</div>
 
 <div class="dashboard__contenedor">
     <?php if(!empty($automoviles)) { ?>
@@ -66,7 +74,7 @@
 
         
     <?php } else { ?>
-        <p>No Hay $automoviles</p>
+        <p>No Hay automoviles</p>
     <?php } ?>
 </div>
 
