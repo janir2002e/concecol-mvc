@@ -7,7 +7,7 @@
     </a>
 </div>
 
-<div class="filtro">
+<div class="filtro" style="margin-bottom:2rem;">
     <p>Seleccione la marca:</p>
     <?php foreach($marcas as $key => $marca) { ?>
         
