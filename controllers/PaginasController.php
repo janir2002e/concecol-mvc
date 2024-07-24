@@ -27,7 +27,9 @@ class PaginasController {
 
     public static function automoviles(Router $router){
 
+        $marcas = Marca::all('ASC');
         
+        $marcaActual = $_GET['marca'] ?? '';
         $pagina_actual = $_GET['page'];
         $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
        
@@ -36,16 +38,31 @@ class PaginasController {
         }
 
         $registros_por_pagina = 6;
-        $total = Automovil::total();
-        
-        $paginacion = new Paginacion($pagina_actual, $registros_por_pagina, $total);
 
-        // redireccionar si el total de paginas es menor a la pagina actual
-        if ($paginacion->total_paginas() < $pagina_actual) {
-            header('Location: /automoviles?page=1');
+        if ($marcaActual) {
+            
+            $marcaV = Marca::where('nombre', $marcaActual);
+            if (!isset($marcaV)) {
+                header('Location: /automoviles?page=1');
+            }
+            
+            $total = Automovil::total('marcaid', $marcaV->id);
+            $paginacion = new Paginacion($pagina_actual, $registros_por_pagina, $total, $marcaActual);
+            $automoviles = Automovil::paginar($registros_por_pagina, $paginacion->offset(), 'marcaid', $marcaV->id);
+            
+            // redireccionar si el total de paginas es menor a la pagina actual
+            if ($paginacion->total_paginas() < $pagina_actual) {
+                header('Location: /automoviles?page=1');
+            }
+        } else {
+            $total = Automovil::total();
+            $paginacion = new Paginacion($pagina_actual, $registros_por_pagina, $total);
+            $automoviles = Automovil::paginar($registros_por_pagina, $paginacion->offset());
+            // redireccionar si el total de paginas es menor a la pagina actual
+            if ($paginacion->total_paginas() < $pagina_actual) {
+                header('Location: /automoviles?page=1');
+            }
         }
-
-        $automoviles = Automovil::paginar($registros_por_pagina, $paginacion->offset());
 
         foreach ($automoviles as $key => $automovil) {
             $objeto = $automovil->getStdClass();
@@ -60,6 +77,7 @@ class PaginasController {
         $router->render('paginas/automoviles', [
             'titulo' => 'Automovíles en Venta',
             'automoviles' => $automoviles,
+            'marcas' => $marcas,
             'paginacion' => $paginacion->paginacion()
         ]);
     }
