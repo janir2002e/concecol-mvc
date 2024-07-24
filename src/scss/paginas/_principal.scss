@@ -15,6 +15,19 @@
     }
 }
 
+.filtro {
+    @include m.tablet {
+        margin-bottom: 2rem;
+    }
+    
+    a {
+        margin-bottom: 2rem;
+        @include m.tablet {
+            margin-bottom: 0;
+        }
+    }
+}
+
 .contacto-info {
     background-color: darken(aqua, 15);
     margin-top: 2rem;
