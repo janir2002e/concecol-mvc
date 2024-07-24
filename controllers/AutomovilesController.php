@@ -15,31 +15,49 @@ use Intervention\Image\ImageManager as Image;
 class AutomovilesController
 {
 
-    public static function index(Router $router)
+   public static function index(Router $router)
     {
         if (!is_admin()) {
             header('Location: /');
         }
 
-        
+        $marcas = Marca::all('ASC');
+
+        $marcaActual = $_GET['marca'] ?? '';
         $pagina_actual = $_GET['page'];
         $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
-       
-        if(!$pagina_actual || $pagina_actual < 1){
+
+        if (!$pagina_actual || $pagina_actual < 1) {
             header('Location: /admin/automoviles?page=1');
         }
 
-        $registros_por_pagina = 8;
-        $total = Automovil::total();
-        
-        $paginacion = new Paginacion($pagina_actual, $registros_por_pagina, $total);
+        $registros_por_pagina = 7;
 
-        // redireccionar si el total de paginas es menor a la pagina actual
-        if ($paginacion->total_paginas() < $pagina_actual) {
-            header('Location: /admin/automoviles?page=1');
+        if ($marcaActual) {
+            $marcaV = Marca::where('nombre', $marcaActual);
+            if (!isset($marcaV)) {
+                header('Location: /admin/automoviles?page=1');
+            }
+
+            $total = Automovil::total('marcaid', $marcaV->id);
+            $paginacion = new Paginacion($pagina_actual, $registros_por_pagina, $total, $marcaActual);
+            $automoviles = Automovil::paginar($registros_por_pagina, $paginacion->offset(), 'marcaid', $marcaV->id);
+            // redireccionar si el total de paginas es menor a la pagina actual
+            if ($paginacion->total_paginas() < $pagina_actual) {
+                header('Location: /admin/automoviles?page=1');
+            }
+          
+        } else {
+            $total = Automovil::total();
+            $paginacion = new Paginacion($pagina_actual, $registros_por_pagina, $total);
+            $automoviles = Automovil::paginar($registros_por_pagina, $paginacion->offset());
+            // redireccionar si el total de paginas es menor a la pagina actual
+            if ($paginacion->total_paginas() < $pagina_actual) {
+                header('Location: /admin/automoviles?page=1');
+            }
         }
 
-        $automoviles = Automovil::paginar($registros_por_pagina, $paginacion->offset());
+
 
         foreach ($automoviles as $key => $automovil) {
             $objeto = $automovil->getStdClass();
@@ -51,14 +69,14 @@ class AutomovilesController
             $automoviles[$key] = $objeto;
         }
 
-
+    
         $router->render('admin/automoviles/index', [
             'titulo' => 'Automovíles',
             'automoviles' => $automoviles,
+            'marcas' => $marcas,
             'paginacion' => $paginacion->paginacion()
         ]);
     }
-
     public static function crear(Router $router)
     {
 
