@@ -1,7 +1,7 @@
 <main class="contenedor">
     <h1 class="heading"><?php echo $titulo; ?></h2>
     
-    <div class="filtro">
+    <div class="filtro" style="margin-bottom:2rem;">
         <p>Seleccione la marca:</p>
         <?php foreach($marcas as $key => $marca) { ?>
             
