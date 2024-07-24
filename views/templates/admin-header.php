@@ -1,6 +1,6 @@
 <header class="dashboard__header">
     <div class="dashboard__header-grid">
-        <a href="/" class="header__titulo" >
+        <a href="/" class="header__titulo" style="text-align: center;">
                 CONCECOL   
         </a>
 
