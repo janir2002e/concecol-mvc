@@ -5,12 +5,14 @@ class Paginacion{
     public $pagina_actual;
     public $registros_por_pagina;
     public $total_registros;
+    public $condicion;
 
-    public function __construct($pagina_actual = 1, $registros_por_pagina = 1, $total_registros = 0)
+    public function __construct($pagina_actual = 1, $registros_por_pagina = 1, $total_registros = 0, $condicion = '')
     {
         $this->pagina_actual = (int) $pagina_actual;
         $this->registros_por_pagina = (int) $registros_por_pagina;
         $this->total_registros = (int) $total_registros;
+        $this->condicion = $condicion;
     }
 
     // calcular registros por pagina
@@ -35,7 +37,12 @@ class Paginacion{
     public function enlace_anterior(){
         $html = '';
         if($this->pagina_anterior()){
-            $html .= "<a  class=\"paginacion__enlace--texto\" href=\"?page={$this->pagina_anterior()}\">&laquo; Anterior</a>";
+            if(!$this->condicion){
+                $html .= "<a  class=\"paginacion__enlace--texto\" href=\"?page={$this->pagina_anterior()}\">&laquo; Anterior</a>";
+            }else {
+                $html .= "<a  class=\"paginacion__enlace--texto\" href=\"?page={$this->pagina_anterior()}&marca={$this->condicion}\">&laquo; Anterior</a>"; 
+            }
+
         }
         return $html;
     }
@@ -43,7 +50,12 @@ class Paginacion{
     public function enlace_siguiente(){
         $html = '';
         if($this->pagina_siguiente()){
-            $html .= "<a  class=\"paginacion__enlace--texto\" href=\"?page={$this->pagina_siguiente()}\">&raquo; Siguiente</a>";
+            if(!$this->condicion){
+                $html .= "<a  class=\"paginacion__enlace--texto\" href=\"?page={$this->pagina_siguiente()}\">&raquo; Siguiente</a>";
+            } else {
+                $html .= "<a  class=\"paginacion__enlace--texto\" href=\"?page={$this->pagina_siguiente()}&marca={$this->condicion}\">&raquo; Siguiente</a>";
+            }
+            
         }
         return $html;
     }
@@ -54,7 +66,12 @@ class Paginacion{
             if($i === $this->pagina_actual) {
                 $html .= "<spam class=\"paginacion__enlace paginacion__enlace--actual\">{$i}</spam>";
             } else {
-                $html .= "<a class=\"paginacion__enlace paginacion__enlace--numero\" href=\"?page={$i}\">{$i}</a>";
+                if(!$this->condicion){
+                    $html .= "<a class=\"paginacion__enlace paginacion__enlace--numero\" href=\"?page={$i}\">{$i}</a>";
+                } else {
+                    $html .= "<a class=\"paginacion__enlace paginacion__enlace--numero\" href=\"?page={$i}&marca={$this->condicion}\">{$i}</a>";
+                }
+                
             }
         }
         return $html;
@@ -75,3 +92,4 @@ class Paginacion{
 
 }
 ?>
+
