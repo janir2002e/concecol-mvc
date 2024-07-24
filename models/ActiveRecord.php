@@ -87,8 +87,12 @@ class ActiveRecord
     }
 
     // Paginar los registros
-    public static function paginar($por_pagina, $offset){
-        $query = "SELECT *  FROM " . static::$tabla . " ORDER BY id DESC LIMIT {$por_pagina} OFFSET {$offset} ";
+     public static function paginar($por_pagina, $offset, $campo = '', $valor = ''){
+        if($campo){
+            $query = "SELECT *  FROM " . static::$tabla . " WHERE {$campo} = '{$valor}' ORDER BY id DESC LIMIT {$por_pagina} OFFSET {$offset} ";
+        }else{
+            $query = "SELECT *  FROM " . static::$tabla . " ORDER BY id DESC LIMIT {$por_pagina} OFFSET {$offset} ";
+        }
         $resultado = self::consultarSQL($query);
         return $resultado;
     }
